@@ -7,7 +7,7 @@ stages:
       shellScript: |-
         pwd
         ls -la
-        mvn package 
+        mvn package -X 
 - name: Publish
   steps:
   - publishImageConfig:
