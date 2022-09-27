@@ -1,0 +1,17 @@
+stages:
+- name: Build
+  steps:
+  - runScriptConfig:
+      image: azul/zulu-openjdk-alpine:11-jre
+      shellScript: |-
+        mvn clean install
+- name: Publish
+  steps:
+  - publishImageConfig:
+      dockerfilePath: ./Dockerfile
+      buildContext: .
+      tag: app-app:${CICD_EXECUTION_SEQUENCE}
+- name: Deploy
+  steps:
+  - applyYamlConfig:
+      path: ./deployment.yaml

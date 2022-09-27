@@ -1,0 +1,60 @@
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app-app-server
+  #namespace: go
+  labels:
+    app: app-app
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: app-app
+  template:
+    metadata:
+      labels:
+        app: app-app
+    spec:
+      imagePullSecrets:
+      - name: pipeline-docker-registry
+      containers:
+      - name: app-app
+        image: ${CICD_IMAGE}:${CICD_EXECUTION_SEQUENCE}
+        ports:
+        - containerPort: 80
+
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: app-app-service
+  #namespace: go
+spec:
+  selector:
+    app: app-app
+  type: ClusterIP
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+
+
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  #namespace: go
+  name: go-ingress
+  annotations:
+    allow.http: "false"
+spec:
+  rules:
+  - host: app.rancher.beyan.tech
+    http:
+      paths:
+        - path: /
+          backend:
+            serviceName: app-app-service
+            servicePort: 80
