@@ -2,8 +2,8 @@ stages:
 - name: Build
   steps:
   - runScriptConfig:
-      image: maven:3-jdk-7
-      # azul/zulu-openjdk-alpine      
+      image: azul/zulu-openjdk-alpine      
+      # maven:3-jdk-7
       shellScript: |-
         mvn package 
 - name: Publish
