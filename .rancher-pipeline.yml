@@ -5,8 +5,9 @@ stages:
       image: azul/zulu-openjdk-alpine:11-jdk      
       # maven:3-jdk-7
       shellScript: |-
-        pwd
-        ls -la
+        mkdir -p /java/src/github.com/app
+        ln -s `pwd` /java/src/github.com/app/pipeline
+        cd /java/src/github.com/app/pipeline
         mvn package -X 
 - name: Publish
   steps:
