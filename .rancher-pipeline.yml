@@ -5,6 +5,8 @@ stages:
       image: azul/zulu-openjdk-alpine      
       # maven:3-jdk-7
       shellScript: |-
+        pwd
+        ls -la
         mvn package 
 - name: Publish
   steps:
