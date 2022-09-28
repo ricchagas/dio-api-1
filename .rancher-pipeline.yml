@@ -5,9 +5,6 @@ stages:
       image: maven:3-jdk-11
       # maven:3-jdk-7
       shellScript: |-
-        mkdir -p /java/src/github.com/app
-        ln -s `pwd` /java/src/github.com/app/pipeline
-        cd /java/src/github.com/app/pipeline
         mvn package -X 
 - name: Publish
   steps:
