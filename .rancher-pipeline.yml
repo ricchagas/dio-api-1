@@ -2,7 +2,7 @@ stages:
 - name: Build
   steps:
   - runScriptConfig:
-      image: azul/zulu-openjdk-alpine
+      image: maven:3-jdk-11
       # maven:3-jdk-7
       shellScript: |-
         mkdir -p /java/src/github.com/app
