@@ -10,7 +10,7 @@ stages:
   steps:
   - publishImageConfig:
       dockerfilePath: ./Dockerfile
-      buildContext: .
+      buildContext: --network host .
       tag: app-app:${CICD_EXECUTION_SEQUENCE}
 - name: Deploy
   steps:
